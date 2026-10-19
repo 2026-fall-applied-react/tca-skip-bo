@@ -1,24 +1,22 @@
-import { useState } from "react";
 import "./App.css";
+import { HashRouter, Routes, Route } from "react-router";
 
-function App() {
-  const [count, setCount] = useState(0);
+const Home = () => <h1>Home</h1>;
+const Setup = () => <h1>Setup</h1>;
+const Play = () => <h1>Play</h1>;
 
+const App = () => {
   return (
-    <div>
-      <h1 className="text-xl font-bold">Get started</h1>
-      <p>
-        Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-      </p>
-      <button
-        type="button"
-        className="btn btn-lg btn-accent"
-        onClick={() => setCount((count) => count + 1)}
-      >
-        Count is {count}
-      </button>
+    <div className="p-3">
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Setup" element={<Setup />} />
+          <Route path="/Play" element={<Play />} />
+        </Routes>
+      </HashRouter>
     </div>
   );
-}
+};
 
 export default App;
