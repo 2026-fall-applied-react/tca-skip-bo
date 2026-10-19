@@ -5,7 +5,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="p-3">
+    <div className="p-3" data-theme="cupcake">
       <h1 className="text-xl font-bold">Get started</h1>
       <p>
         Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
