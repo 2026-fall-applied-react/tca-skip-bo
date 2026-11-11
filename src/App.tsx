@@ -16,6 +16,9 @@ const dummyGameResults: GameResult[] = [
 const App = () => {
   const [gameResults, setGameResults] =
     useState<GameResult[]>(dummyGameResults);
+  const addNewGameResult = (result: GameResult) => {
+    setGameResults((previousResults) => [...previousResults, result]);
+  };
   return (
     <div className="p-3">
       <HashRouter>
@@ -25,7 +28,10 @@ const App = () => {
             element={<Home leaderboard={getLeaderboard(gameResults)} />}
           />
           <Route path="/Setup" element={<Setup />} />
-          <Route path="/Play" element={<Play />} />
+          <Route
+            path="/Play"
+            element={<Play addNewGameResult={addNewGameResult} />}
+          />
         </Routes>
       </HashRouter>
     </div>
