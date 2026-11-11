@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type SetupProps = {
   setTitle: (title: string) => void;
@@ -15,7 +15,27 @@ export const Setup: React.FC<SetupProps> = ({
   setSelectedPlayers,
 }) => {
   const nav = useNavigate();
+  const [newPlayerName, setNewPlayerName] = useState("");
+  const addPlayer = () => {
+    const name = newPlayerName.trim();
+    if (!name) return;
 
+    const existingPlayer = previousPlayers.find(
+      (player) => player.toLowerCase() === name.toLowerCase(),
+    );
+
+    const playerToAdd = existingPlayer || name;
+
+    setSelectedPlayers((current) =>
+      current.some(
+        (player) => player.toLowerCase() === playerToAdd.toLowerCase(),
+      )
+        ? current
+        : [...current, playerToAdd],
+    );
+
+    setNewPlayerName("");
+  };
   const togglePlayer = (player: string) => {
     setSelectedPlayers((current) =>
       current.includes(player)
@@ -29,9 +49,38 @@ export const Setup: React.FC<SetupProps> = ({
 
   return (
     <div>
-      <button className="btn btn-soft btn-lg mt-3" onClick={() => nav("/Play")}>
-        Play the Game
+      <button
+        className="btn btn-soft btn-lg mt-3"
+        disabled={selectedPlayers.length < 2}
+        onClick={() => nav("/Play")}
+      >
+        {selectedPlayers.length === 0
+          ? "Select players for Skip-Bo"
+          : selectedPlayers.length === 1
+            ? "Select at least 2 players"
+            : `Start Skip-Bo with ${selectedPlayers.length} players`}
       </button>
+
+      <div className="mt-6">
+        <h2 className="text-xl font-bold mb-3">Add New Player</h2>
+
+        <div className="join">
+          <input
+            type="text"
+            className="input input-bordered join-item"
+            placeholder="Enter player name"
+            value={newPlayerName}
+            onChange={(e) => setNewPlayerName(e.target.value)}
+          />
+          <button
+            type="button"
+            className="btn btn-primary join-item"
+            onClick={addPlayer}
+          >
+            Add Player
+          </button>
+        </div>
+      </div>
 
       <div className="mt-6">
         <h2 className="text-xl font-bold">Previous Players</h2>

@@ -23,6 +23,7 @@ export type GeneralFacts = {
   totalGames: number;
   shortestGame: string;
   longestGame: string;
+  averageDurations: string[];
 };
 
 // Helper functions
@@ -50,12 +51,31 @@ export const getPreviousPlayers = (games: GameResult[]): string[] => {
     .sort((a, b) => a.localeCompare(b));
 };
 
-// Public functions
-
 export const getLeaderboard = (games: GameResult[]): LeaderboardEntry[] => {
   return getPreviousPlayers(games)
     .map((player) => getLeaderboardEntry(games, player))
     .sort((a, b) => b.avg - a.avg);
+};
+const getAverageDurations = (games: GameResult[]): string[] => {
+  const playerCounts = [...new Set(games.map((game) => game.players.length))];
+
+  return playerCounts
+    .sort((a, b) => a - b)
+    .map((count) => {
+      const matchingGames = games.filter(
+        (game) => game.players.length === count,
+      );
+
+      const totalDuration = matchingGames.reduce(
+        (total, game) =>
+          total + (Date.parse(game.end) - Date.parse(game.start)),
+        0,
+      );
+
+      const average = totalDuration / matchingGames.length;
+
+      return `${count} players: ${formatDuration(average)}`;
+    });
 };
 export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
   if (games.length === 0) {
@@ -64,6 +84,7 @@ export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
       totalGames: 0,
       shortestGame: "N/A",
       longestGame: "N/A",
+      averageDurations: [],
     };
   }
   const durations = games.map(
@@ -77,5 +98,6 @@ export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
     totalGames: games.length,
     shortestGame: formatDuration(Math.min(...durations)),
     longestGame: formatDuration(Math.max(...durations)),
+    averageDurations: getAverageDurations(games),
   };
 };

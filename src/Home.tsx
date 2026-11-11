@@ -93,6 +93,19 @@ export const Home: React.FC<HomeProps> = ({
                   <td>Longest Game</td>
                   <td>{generalFacts.longestGame}</td>
                 </tr>
+                {generalFacts.averageDurations.length === 0 ? (
+                  <tr>
+                    <td>Average Game Duration</td>
+                    <td>N/A</td>
+                  </tr>
+                ) : (
+                  generalFacts.averageDurations.map((duration, index) => (
+                    <tr key={index}>
+                      <td>Average Game Duration</td>
+                      <td>{duration}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
