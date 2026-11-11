@@ -16,18 +16,35 @@ const dummyGameResults: GameResult[] = [
 const App = () => {
   const [gameResults, setGameResults] =
     useState<GameResult[]>(dummyGameResults);
+  const [title, setTitle] = useState("Home");
   const addNewGameResult = (result: GameResult) => {
     setGameResults((previousResults) => [...previousResults, result]);
   };
   return (
     <div className="p-3">
       <HashRouter>
+        <div className="navbar bg-base-200 rounded-box mb-4">
+          <div className="flex-1">
+            <span className="text-xl font-bold">{title}</span>
+          </div>
+        </div>
         <Routes>
           <Route
             path="/"
-            element={<Home leaderboard={getLeaderboard(gameResults)} />}
+            element={
+              <Home
+                leaderboard={getLeaderboard(gameResults)}
+                setTitle={setTitle}
+              />
+            }
           />
-          <Route path="/Setup" element={<Setup />} />
+          <Route path="/Setup" element={<Setup setTitle={setTitle} />} />
+          <Route
+            path="/Play"
+            element={
+              <Play addNewGameResult={addNewGameResult} setTitle={setTitle} />
+            }
+          />
           <Route
             path="/Play"
             element={<Play addNewGameResult={addNewGameResult} />}

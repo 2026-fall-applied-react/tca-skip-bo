@@ -1,15 +1,19 @@
 import { useNavigate } from "react-router";
 import type { LeaderboardEntry } from "./gameResults";
+import { useEffect } from "react";
 
 type HomeProps = {
   leaderboard: LeaderboardEntry[];
+  setTitle: (title: string) => void;
 };
-export const Home: React.FC<HomeProps> = ({ leaderboard }) => {
+export const Home: React.FC<HomeProps> = ({ leaderboard, setTitle }) => {
   const nav = useNavigate();
+  useEffect(() => {
+    setTitle("Home");
+  }, [setTitle]);
   console.log(leaderboard);
   return (
     <div>
-      <h1>Home</h1>
       <button
         className="btn btn-soft btn-lg mt-3"
         onClick={() => nav("/Setup")}
