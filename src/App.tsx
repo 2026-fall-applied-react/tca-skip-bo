@@ -5,7 +5,7 @@ import { Setup } from "./Setup";
 import { Play } from "./Play";
 import type { GameResult } from "./gameResults";
 import { useState } from "react";
-import { getLeaderboard } from "./gameResults";
+import { getLeaderboard, getPreviousPlayers } from "./gameResults";
 
 const dummyGameResults: GameResult[] = [
   { winner: "Alice", players: ["Alice", "Bob", "Charlie"] },
@@ -38,16 +38,20 @@ const App = () => {
               />
             }
           />
-          <Route path="/Setup" element={<Setup setTitle={setTitle} />} />
+          <Route
+            path="/Setup"
+            element={
+              <Setup
+                setTitle={setTitle}
+                previousPlayers={getPreviousPlayers(gameResults)}
+              />
+            }
+          />
           <Route
             path="/Play"
             element={
               <Play addNewGameResult={addNewGameResult} setTitle={setTitle} />
             }
-          />
-          <Route
-            path="/Play"
-            element={<Play addNewGameResult={addNewGameResult} />}
           />
         </Routes>
       </HashRouter>

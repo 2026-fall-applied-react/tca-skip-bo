@@ -30,7 +30,7 @@ const getLeaderboardEntry = (
   return { wins, losses, avg, player };
 };
 
-const getPreviousPlayers = (games: GameResult[]): string[] => {
+export const getPreviousPlayers = (games: GameResult[]): string[] => {
   return games
     .flatMap((game) => game.players)
     .filter((player, index, all) => all.indexOf(player) === index)
