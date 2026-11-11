@@ -24,14 +24,14 @@ export const Home: React.FC<HomeProps> = ({
   return (
     <div>
       <button
-        className="btn btn-soft btn-lg mt-3"
+        className="btn btn-lg mt-3 skipbo-setup-btn"
         onClick={() => nav("/Setup")}
       >
         Setup a Game
       </button>
 
       {/* Leaderboard */}
-      <div className="card bg-base-200 shadow-xl mt-6">
+      <div className="card bg-base-200 shadow-lg mt-6 skipbo-card">
         <div className="card-body">
           <h2 className="card-title">Skip-Bo Leaderboard</h2>
 
@@ -66,7 +66,7 @@ export const Home: React.FC<HomeProps> = ({
       </div>
 
       {/* General Facts */}
-      <div className="card bg-base-200 shadow-xl mt-6">
+      <div className="card bg-base-200 shadow-lg mt-6 skipbo-card">
         <div className="card-body">
           <h2 className="card-title">Skip-Bo General Facts</h2>
 

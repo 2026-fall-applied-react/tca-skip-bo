@@ -1,3 +1,33 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --color-skipbo-purple: #37116f;
+  --color-skipbo-green: #69be28;
+  --color-skipbo-pink: #e51c83;
+  --color-skipbo-red: #d91f32;
+  --color-skipbo-blue: #123b91;
+}
+[data-theme="light"] .skipbo-setup-btn {
+  background-color: var(--color-skipbo-pink);
+  color: white;
+  border: none;
+}
+
+[data-theme="dark"] .skipbo-setup-btn {
+  background-color: var(--color-skipbo-green);
+  color: black;
+  border: none;
+}
+[data-theme="light"] .skipbo-card {
+  border: 4px solid var(--color-skipbo-green);
+  box-shadow: 0 4px 14px rgba(55, 17, 111, 0.15);
+}
+
+[data-theme="dark"] .skipbo-card {
+  border: 4px solid var(--color-skipbo-pink);
+  box-shadow: 0 4px 14px rgba(229, 28, 131, 0.2);
+}
