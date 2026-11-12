@@ -10,6 +10,7 @@ export type GameResult = {
   players: string[];
   start: string;
   end: string;
+  stockpileRemaining?: Record<string, number>;
 };
 
 export type LeaderboardEntry = {
